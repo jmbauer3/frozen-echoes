@@ -8,13 +8,27 @@ window.onload = function() {
         'assets/images/image5.jpg',
         'assets/images/image6.jpg'
     ];
+    const musicTracks = [
+        'assets/music/Frozen Echoes.mp3',
+        'assets/music/Bubbly Dream.mp3'
+    ];
     let currentImageIndex = 0;
+    let currentMusicIndex = 0;
     let score = 0;
 
     // Function to change background image
     function changeBackgroundImage() {
         currentImageIndex = (currentImageIndex + 1) % images.length;
         document.body.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+    }
+
+    // Function to change music track
+    function changeMusicTrack() {
+        currentMusicIndex = (currentMusicIndex + 1) % musicTracks.length;
+        music.src = musicTracks[currentMusicIndex];
+        music.play().catch(error => {
+            console.error('Failed to play new music:', error);
+        });
     }
 
     // Set initial background image
@@ -47,9 +61,14 @@ window.onload = function() {
             scoreDisplay.innerText = `Score: ${score}`;
             gameArea.removeChild(crystal);
 
-            // Change background image every 10 crystals
-            if (score % 10 === 0) {
+            // Change background image every 5 crystals
+            if (score % 5 === 0) {
                 changeBackgroundImage();
+            }
+
+            // Change music every 15 crystals
+            if (score % 15 === 0) {
+                changeMusicTrack();
             }
         });
 
