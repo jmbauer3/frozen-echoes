@@ -16,6 +16,10 @@ window.onload = function() {
     let currentMusicIndex = 0;
     let score = 0;
 
+    // Initial settings
+    let createCrystalInterval = 3000; // Interval to create crystals
+    let crystalLifetime = 5000; // Time crystals remain on screen
+
     // Function to change background image
     function changeBackgroundImage() {
         currentImageIndex = (currentImageIndex + 1) % images.length;
@@ -70,18 +74,30 @@ window.onload = function() {
             if (score % 15 === 0) {
                 changeMusicTrack();
             }
+
+            // Increase difficulty: make crystals appear and disappear faster
+            if (createCrystalInterval > 1000) {
+                createCrystalInterval -= 100;
+            }
+            if (crystalLifetime > 2000) {
+                crystalLifetime -= 100;
+            }
+
+            // Clear existing interval and set a new one with updated speed
+            clearInterval(crystalIntervalId);
+            crystalIntervalId = setInterval(createCrystal, createCrystalInterval);
         });
 
         gameArea.appendChild(crystal);
 
-        // Remove crystal after 5 seconds
+        // Remove crystal after its lifetime
         setTimeout(() => {
             if (gameArea.contains(crystal)) {
                 gameArea.removeChild(crystal);
             }
-        }, 5000);
+        }, crystalLifetime);
     }
 
-    // Create a new crystal every 3 seconds
-    setInterval(createCrystal, 3000);
+    // Initial interval to create crystals
+    let crystalIntervalId = setInterval(createCrystal, createCrystalInterval);
 }
