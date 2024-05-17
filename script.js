@@ -17,9 +17,6 @@ window.onload = function() {
     // Set initial background image
     document.body.style.backgroundImage = `url('${images[currentImageIndex]}')`;
 
-    // Change background image every 10 seconds
-    setInterval(changeBackgroundImage, 10000);
-
     // Ensure the music plays when the page loads
     music.volume = 0.2;
     music.play().catch(error => {
@@ -46,6 +43,11 @@ window.onload = function() {
             score++;
             scoreDisplay.innerText = `Score: ${score}`;
             gameArea.removeChild(crystal);
+
+            // Change background image every 10 crystals
+            if (score % 10 === 0) {
+                changeBackgroundImage();
+            }
         });
 
         gameArea.appendChild(crystal);
