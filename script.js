@@ -40,6 +40,8 @@ window.onload = function() {
         crystal.style.top = `${Math.random() * (gameArea.clientHeight - 30)}px`;
         crystal.style.left = `${Math.random() * (gameArea.clientWidth - 30)}px`;
 
+        console.log('Crystal created at:', crystal.style.top, crystal.style.left);
+
         crystal.addEventListener('click', () => {
             score++;
             scoreDisplay.innerText = `Score: ${score}`;

@@ -45,6 +45,7 @@ p {
     height: 400px;
     border: 2px solid white;
     margin-top: 20px;
+    overflow: hidden;
 }
 
 .crystal {
